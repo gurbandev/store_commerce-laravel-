@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BrandSeeder::class,
         ]);
-        Product::factory()->count(1000)->create();
+        Product::factory()->count(500)->create();
     }
 }
