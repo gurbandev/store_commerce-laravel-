@@ -10,21 +10,23 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with(['category', 'brand'])
-            ->paginate(50);
+            ->orderBy('id', 'desc')
+            ->paginate();
 
-        return view('index')
+        return view('product.index')
             ->with([
                 'products' => $products,
             ]);
     }
 
 
-    public function show($id)
+    public function show($slug)
     {
-        $product = Product::with(['category', 'brand'])
-            ->findOrFail($id);
+        $product = Product::where('slug', $slug)
+            ->with(['category', 'brand'])
+            ->firstOrFail();
 
-        return view('show')
+        return view('product.show')
             ->with([
                 'product' => $product,
             ]);

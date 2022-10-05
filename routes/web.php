@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('', '/products');
 
 Route::controller(ProductController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/product/{id}', 'show')->name('product.show')->where('id', '[0-9]+');
+    Route::get('/products', 'index')->name('products.index');
+    Route::get('/products/{slug}', 'show')->name('products.show')->where('slug', '[A-Za-z0-9-]+');
 });
 
-//Route::get('/', [ProductController::class, 'index']);
-//Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::controller(CategoryController::class)->group(function () {
+//    Route::get('/categories', 'index')->name('categories.index');
+    Route::get('/categories/{slug}/products', 'show')->name('categories.show')->where('slug', '[A-Za-z0-9-]+');
+});
+
+Route::controller(BrandController::class)->group(function () {
+//    Route::get('/brands', 'index')->name('brands.index');
+    Route::get('/brands/{slug}/products', 'show')->name('brands.show')->where('slug', '[A-Za-z0-9-]+');
+});

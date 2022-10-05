@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $perPage = 50;
+
 
     public function category()
     {
