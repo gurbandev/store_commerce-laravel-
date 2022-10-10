@@ -12,17 +12,25 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach($categories as $category)
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', $category->slug) }}">
+                                    {{ $category->name }} ({{ $category->products_count }})
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Brands</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach($brands as $brand)
+                            <li>
+                                <a class="dropdown-item" href="{{ route('brands.show', $brand->slug) }}">
+                                    {{ $brand->name }} ({{ $brand->products_count }})
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
