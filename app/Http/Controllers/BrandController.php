@@ -20,14 +20,36 @@ class BrandController extends Controller
 //    }
 
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
+        $request->validate([
+            'sort' => 'nullable|string|size:11',
+        ]);
+        $sort = $request->has('sort') ? $request->sort : null;
+
         $brand = Brand::where('slug', $slug)
             ->firstOrFail();
         $products = Product::where('brand_id', $brand->id)
             ->with(['category', 'brand'])
-            ->orderBy('id', 'desc')
+            ->when($sort, function ($query, $sort) {
+                if ($sort == 'low-to-high') {
+                    $query->orderBy('price')
+                        ->orderBy('stock', 'desc');
+                } elseif ($sort == 'high-to-low') {
+                    $query->orderBy('price', 'desc')
+                        ->orderBy('stock', 'desc');
+                } elseif ($sort == 'most-viewed') {
+                    $query->orderBy('viewed', 'desc')
+                        ->orderBy('stock', 'desc');
+                } else {
+                    $query->orderBy('id', 'desc');
+                }
+            }, function ($query) {
+                $query->orderBy('id', 'desc');
+            })
             ->paginate();
+
+        $products = $products->appends(['sort' => $sort]);
 
         return view('brand.show')
             ->with([

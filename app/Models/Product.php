@@ -13,7 +13,7 @@ class Product extends Model
         'id',
     ];
 
-    protected $perPage = 50;
+    protected $perPage = 20;
 
 
     public function category()

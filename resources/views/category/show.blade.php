@@ -11,7 +11,7 @@
             </div>
             @include('app.filter')
         </div>
-        <div class="row g-3">
+        <div class="row g-3 mb-3">
             @foreach($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
                     @include('app.product')

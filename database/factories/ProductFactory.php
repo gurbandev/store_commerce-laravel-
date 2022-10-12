@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             'slug' => str($name . '-' . rand(100, 999))->slug(),
             'barcode' => fake()->unique()->isbn13(),
             'description' => fake()->text($maxNbChars = rand(100, 300)),
-            'price' => fake()->randomFloat($nbMaxDecimals = 2, $min = 100, $max = 100000),
+            'price' => fake()->randomFloat($nbMaxDecimals = 1, $min = 100, $max = 1000),
             'stock' => rand(0, 20),
             'viewed' => rand(0, 100),
         ];
