@@ -33,8 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('app.nav', function ($view) {
             $categories = Category::withCount(['products'])
+                ->orderBy('slug')
                 ->get();
             $brands = Brand::withCount(['products'])
+                ->orderBy('slug')
                 ->get();
 
             $view->with([

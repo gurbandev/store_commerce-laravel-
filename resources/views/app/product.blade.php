@@ -23,4 +23,35 @@
         <i class="bi-eye-fill text-secondary"></i>
         {{ $product->viewed }}
     </div>
+    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success btn-sm">
+        <i class="bi-pencil-fill"></i> Edit
+    </a>
+    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <i class="bi-trash-fill"></i> Delete
+    </button>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>Are you sure to delete "{{ $product->name }}"?</div>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('products.delete', $product->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-dark btn-sm">
+                            <i class="bi-trash-fill"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

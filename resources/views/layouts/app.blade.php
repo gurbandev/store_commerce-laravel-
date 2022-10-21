@@ -10,7 +10,8 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </head>
 <body class="bg-light">
-    @include('app.nav')
-    @yield('content')
+@include('app.nav')
+@include('app.alert')
+@yield('content')
 </body>
 </html>
