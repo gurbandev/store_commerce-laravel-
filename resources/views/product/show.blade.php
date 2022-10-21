@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container-lg py-3">
-        <div class="h3">
+        <div class="h3 mb-3">
             {{ $product->name }}
         </div>
         @include('app.product')

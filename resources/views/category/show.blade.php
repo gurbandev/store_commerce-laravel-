@@ -4,12 +4,8 @@
 @endsection
 @section('content')
     <div class="container-lg py-3">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="h3">
-                <span class="text-secondary">Category</span>
-                {{ $category->name }}
-            </div>
-            @include('app.filter')
+        <div class="h3 mb-3">
+            <span class="text-secondary">Category</span> {{ $category->name }}
         </div>
         <div class="row g-3 mb-3">
             @foreach($products as $product)

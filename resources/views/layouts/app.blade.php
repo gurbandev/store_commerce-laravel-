@@ -12,6 +12,5 @@
 <body class="bg-light">
     @include('app.nav')
     @yield('content')
-    @include('app.footer')
 </body>
 </html>

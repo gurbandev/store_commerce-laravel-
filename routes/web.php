@@ -16,19 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('', '/products')->name('home');
-
 Route::controller(ProductController::class)->group(function () {
-    Route::get('/products', 'index')->name('products.index');
-    Route::get('/products/{slug}', 'show')->name('products.show')->where('slug', '[A-Za-z0-9-]+');
+    Route::get('/', 'index')
+        ->name('home');
+    Route::get('/products/{slug}', 'show')
+        ->name('products.show')->where('slug', '[A-Za-z0-9-]+');
 });
 
-Route::controller(CategoryController::class)->group(function () {
-//    Route::get('/categories', 'index')->name('categories.index');
-    Route::get('/categories/{slug}/products', 'show')->name('categories.show')->where('slug', '[A-Za-z0-9-]+');
-});
+Route::get('/categories/{slug}/products', [CategoryController::class, 'show'])
+    ->name('categories.show')->where('slug', '[A-Za-z0-9-]+');
 
-Route::controller(BrandController::class)->group(function () {
-//    Route::get('/brands', 'index')->name('brands.index');
-    Route::get('/brands/{slug}/products', 'show')->name('brands.show')->where('slug', '[A-Za-z0-9-]+');
-});
+Route::get('/brands/{slug}/products', [BrandController::class, 'show'])
+    ->name('brands.show')->where('slug', '[A-Za-z0-9-]+');
