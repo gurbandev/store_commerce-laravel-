@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(ProductController::class)->group(function () {
-    Route::get('/', 'index')->name('home');
+    Route::get('', 'index')->name('home');
     Route::get('/products/{slug}', 'show')->name('products.show')->where('slug', '[A-Za-z0-9-]+');
 
     Route::prefix('admin')->name('products.')->group(function () {

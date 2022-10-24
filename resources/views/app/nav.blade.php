@@ -15,7 +15,7 @@
                         @foreach($categories as $category)
                             <li>
                                 <a class="dropdown-item" href="{{ route('categories.show', $category->slug) }}">
-                                    {{ $category->name }} ({{ $category->products_count }})
+                                    {{ $category->name }} <span class="badge text-bg-light">{{ $category->products_count }}</span>
                                 </a>
                             </li>
                         @endforeach

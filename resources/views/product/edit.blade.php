@@ -7,7 +7,7 @@
         <div class="h3 text-center mb-3">
             Edit Product
         </div>
-        <form action="{{ route('products.update', $product->id) }}" method="post">
+        <form action="{{ route('products.update', $product->id) }}" method="post"  enctype="multipart/form-data">
             @method('PUT')
             @csrf
 
@@ -57,6 +57,11 @@
                 <div class="col-lg-6 mb-3">
                     <label for="stock" class="form-label fw-semibold">Stock *</label>
                     <input type="number" class="form-control" name="stock" id="stock" min="0" value="{{ $product->stock }}" required>
+                </div>
+
+                <div class="col-lg-12 mb-3">
+                    <label for="image" class="form-label fw-semibold">Image *</label>
+                    <input type="file" accept="image/jpeg" class="form-control" name="image" id="image" required>
                 </div>
             </div>
 

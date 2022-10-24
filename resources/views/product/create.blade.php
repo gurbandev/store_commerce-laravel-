@@ -7,7 +7,7 @@
         <div class="h3 text-center mb-3">
             Add Product
         </div>
-        <form action="{{ route('products.store') }}" method="post">
+        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="row justify-content-center">
@@ -52,6 +52,11 @@
                 <div class="col-lg-6 mb-3">
                     <label for="stock" class="form-label fw-semibold">Stock *</label>
                     <input type="number" class="form-control" name="stock" id="stock" min="0" value="0" required>
+                </div>
+
+                <div class="col-lg-12 mb-3">
+                    <label for="image" class="form-label fw-semibold">Image *</label>
+                    <input type="file" accept="image/jpeg" class="form-control" name="image" id="image" required>
                 </div>
             </div>
 
