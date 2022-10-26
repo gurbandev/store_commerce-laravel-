@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,14 @@ Route::controller(ProductController::class)->group(function () {
         Route::put('/products/{id}', 'update')->name('update')->where('id', '[0-9-]+');
         Route::delete('/products/{id}', 'delete')->name('delete')->where('id', '[0-9-]+');
     });
+});
+
+Route::controller(CartController::class)->prefix('cart')->name('cart.')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('/{id}/add', 'add')->name('add')->where('id', '[0-9-]+');
+    Route::get('/{id}/increase', 'increase')->name('increase')->where('id', '[0-9-]+');
+    Route::get('/{id}/decrease', 'decrease')->name('decrease')->where('id', '[0-9-]+');
+    Route::get('/{id}/remove', 'remove')->name('remove')->where('id', '[0-9-]+');
 });
 
 Route::get('/categories/{slug}/products', [CategoryController::class, 'show'])

@@ -22,18 +22,14 @@
             <div class="h6 small">
                 {{ number_format($product->price, 2, '.', ' ') }}
                 <small>TMT</small>
-            </div>
-            <div class="h6 small">
+                <span class="text-secondary mx-2">|</span>
                 <i class="bi-box-fill text-secondary"></i>
                 {{ $product->stock }}
                 <span class="mx-1">∙</span>
                 <i class="bi-eye-fill text-secondary"></i>
                 {{ $product->viewed }}
             </div>
-            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success btn-sm">
-                <i class="bi-pencil-fill"></i> Edit
-            </a>
-            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $product->id }}">
+            <button type="button" class="btn btn-dark btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $product->id }}">
                 <i class="bi-trash-fill"></i> Delete
             </button>
             <div class="modal fade" id="deleteModal-{{ $product->id }}" tabindex="-1" aria-labelledby="deleteModal-{{ $product->id }}Label"
@@ -62,6 +58,12 @@
                     </div>
                 </div>
             </div>
+            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success btn-sm mb-1">
+                <i class="bi-pencil-fill"></i> Edit
+            </a>
+            <a href="{{ route('cart.add', $product->id) }}" class="btn btn-danger btn-sm mb-1">
+                <i class="bi-plus-lg"></i> Add to cart
+            </a>
         </div>
     </div>
 </div>

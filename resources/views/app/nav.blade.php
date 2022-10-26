@@ -15,7 +15,8 @@
                         @foreach($categories as $category)
                             <li>
                                 <a class="dropdown-item" href="{{ route('categories.show', $category->slug) }}">
-                                    {{ $category->name }} <span class="badge text-bg-light">{{ $category->products_count }}</span>
+                                    {{ $category->name }}
+                                    <span class="badge text-bg-light">{{ $category->products_count }}</span>
                                 </a>
                             </li>
                         @endforeach
@@ -27,11 +28,19 @@
                         @foreach($brands as $brand)
                             <li>
                                 <a class="dropdown-item" href="{{ route('brands.show', $brand->slug) }}">
-                                    {{ $brand->name }} ({{ $brand->products_count }})
+                                    {{ $brand->name }}
+                                    <span class="badge text-bg-light">{{ $brand->products_count }}</span>
                                 </a>
                             </li>
                         @endforeach
                     </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cart.index') }}">
+                        Cart <span class="badge text-bg-danger">{{ $cartIds }}</span>
+                    </a>
                 </li>
             </ul>
         </div>
