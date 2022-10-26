@@ -8,10 +8,11 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $products = Product::with(['category', 'brand'])
             ->orderBy('id', 'desc')
@@ -74,7 +75,7 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:1000',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'required|image|mimes:jpg,jpeg|max:1024|dimensions:width=225,height=225',
+            'image' => 'required|image|mimes:jpg,jpeg|max:1024|dimensions:width=600,height=800',
         ]);
 
         $product = new Product();
@@ -89,8 +90,17 @@ class ProductController extends Controller
         $product->save();
 
         if ($request->has('image')) {
+            // name
             $name = 'photo-' . $product->id . '.jpg';
+            // save normal size
             Storage::putFileAs('public/products', $request->image, $name);
+            // save sm size
+            $img = Image::make($request->image);
+            $img->resize(135, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save('storage/products/sm/' . $name);
+            // save to modal
             $product->image = $name;
             $product->update();
         }
@@ -129,7 +139,7 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:1000',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'required|image|mimes:jpg,jpeg|max:1024|dimensions:width=225,height=225',
+            'image' => 'required|image|mimes:jpg,jpeg|max:1024|dimensions:width=600,height=800',
         ]);
 
         $product = Product::findOrFail($id);
@@ -143,9 +153,22 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         if ($request->has('image')) {
             if ($product->image) {
-                // remove image
+                Storage::delete('public/products/' . $product->image);
+                Storage::delete('public/products/sm/' . $product->image);
             }
-            // upload image
+            // name
+            $name = 'photo-' . $product->id . '.jpg';
+            // save normal size
+            Storage::putFileAs('public/products', $request->image, $name);
+            // save sm size
+            $img = Image::make($request->image);
+            $img->resize(135, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save('storage/products/sm/' . $name);
+            // save to modal
+            $product->image = $name;
+            $product->update();
         }
         $product->update();
 
@@ -160,7 +183,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         if ($product->image) {
-            // remove image
+            Storage::delete('public/products/' . $product->image);
+            Storage::delete('public/products/sm/' . $product->image);
         }
         $product->delete();
 
