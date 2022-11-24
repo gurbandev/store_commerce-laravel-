@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'description' => fake()->text($maxNbChars = rand(100, 300)),
             'price' => fake()->randomFloat($nbMaxDecimals = 1, $min = 100, $max = 1000),
             'stock' => rand(0, 20),
-            'viewed' => rand(0, 100),
+            'viewed' => rand(0, 100)
         ];
     }
 }
